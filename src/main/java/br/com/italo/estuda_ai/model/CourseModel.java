@@ -26,10 +26,59 @@ public class CourseModel {
     @Column(nullable = false)
     private Duration averageDuration;
 
-    @ManyToMany(mappedBy = "courses")
-    private Set<UserModel> user;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ManyToMany(mappedBy = "courses", fetch = FetchType.LAZY)
+    private Set<UserModel> users;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
     private Set<ModuleModel> modules = new HashSet<>();
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Duration getAverageDuration() {
+        return averageDuration;
+    }
+
+    public void setAverageDuration(Duration averageDuration) {
+        this.averageDuration = averageDuration;
+    }
+
+    public Set<UserModel> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<UserModel> users) {
+        this.users = users;
+    }
+
+    public Set<ModuleModel> getModules() {
+        return modules;
+    }
+
+    public void setModules(Set<ModuleModel> modules) {
+        this.modules = modules;
+    }
 }

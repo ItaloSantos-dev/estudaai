@@ -26,4 +26,35 @@ public class QuestionModel {
     private SubmoduleModel submodule;
 
 
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public QuestionType getType() {
+        return type;
+    }
+
+    public void setType(QuestionType type) {
+        this.type = type;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public SubmoduleModel getSubmodule() {
+        return submodule;
+    }
+
+    public void setSubmodule(SubmoduleModel submodule) {
+        this.submodule = submodule;
+    }
 }

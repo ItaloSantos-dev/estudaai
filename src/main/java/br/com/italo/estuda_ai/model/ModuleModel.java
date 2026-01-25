@@ -28,4 +28,45 @@ public class ModuleModel {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "module")
     private Set<SubmoduleModel> submodules = new HashSet<>();
+
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Duration getAverageDuration() {
+        return averageDuration;
+    }
+
+    public void setAverageDuration(Duration averageDuration) {
+        this.averageDuration = averageDuration;
+    }
+
+    public CourseModel getCourse() {
+        return course;
+    }
+
+    public void setCourse(CourseModel course) {
+        this.course = course;
+    }
+
+    public Set<SubmoduleModel> getSubmodules() {
+        return submodules;
+    }
+
+    public void setSubmodules(Set<SubmoduleModel> submodules) {
+        this.submodules = submodules;
+    }
 }

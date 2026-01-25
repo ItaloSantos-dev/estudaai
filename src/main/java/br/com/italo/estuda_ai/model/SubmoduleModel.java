@@ -36,4 +36,60 @@ public class SubmoduleModel {
     @ManyToOne
     @JoinColumn(name = "module_id")
     private ModuleModel module;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Set<LinkModel> getLinks() {
+        return links;
+    }
+
+    public void setLinks(Set<LinkModel> links) {
+        this.links = links;
+    }
+
+    public Set<QuestionModel> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(Set<QuestionModel> questions) {
+        this.questions = questions;
+    }
+
+    public Duration getAverageDuration() {
+        return averageDuration;
+    }
+
+    public void setAverageDuration(Duration averageDuration) {
+        this.averageDuration = averageDuration;
+    }
+
+    public ModuleModel getModule() {
+        return module;
+    }
+
+    public void setModule(ModuleModel module) {
+        this.module = module;
+    }
 }
