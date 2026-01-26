@@ -1,8 +1,10 @@
 package br.com.italo.estuda_ai.service;
 
 import br.com.italo.estuda_ai.DTOs.requests.RequestModule;
+import br.com.italo.estuda_ai.DTOs.responses.ResponseSubmodule;
 import br.com.italo.estuda_ai.model.CourseModel;
 import br.com.italo.estuda_ai.model.ModuleModel;
+import br.com.italo.estuda_ai.model.SubmoduleModel;
 import br.com.italo.estuda_ai.repository.CourseRepository;
 import br.com.italo.estuda_ai.repository.ModuleRepository;
 import jakarta.persistence.EntityManager;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -60,6 +63,10 @@ public class ModuleService {
         }
 
         return this.moduleRepository.save(module);
+    }
+
+    public Set<SubmoduleModel> getSubmodulesOfModule(String moduleId){
+        return this.moduleRepository.findById(UUID.fromString(moduleId)).get().getSubmodules();
     }
 
 

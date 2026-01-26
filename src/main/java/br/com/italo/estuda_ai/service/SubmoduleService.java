@@ -1,7 +1,9 @@
 package br.com.italo.estuda_ai.service;
 
 import br.com.italo.estuda_ai.DTOs.requests.RequestSubmodule;
+import br.com.italo.estuda_ai.model.LinkModel;
 import br.com.italo.estuda_ai.model.ModuleModel;
+import br.com.italo.estuda_ai.model.QuestionModel;
 import br.com.italo.estuda_ai.model.SubmoduleModel;
 import br.com.italo.estuda_ai.repository.ModuleRepository;
 import br.com.italo.estuda_ai.repository.SubmoduleRepository;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -63,5 +66,13 @@ public class SubmoduleService {
         }
 
         return this.submoduleRepository.save(submodule);
+    }
+
+    public Set<LinkModel> getLinksOfSubmodule(String submoduleId){
+        return this.submoduleRepository.findById(UUID.fromString(submoduleId)).get().getLinks();
+    }
+
+    public Set<QuestionModel> getQuestionsOfSubmodule(String submoduleId){
+        return this.submoduleRepository.findById(UUID.fromString(submoduleId)).get().getQuestions();
     }
 }

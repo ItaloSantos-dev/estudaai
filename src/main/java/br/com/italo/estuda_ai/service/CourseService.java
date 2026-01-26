@@ -1,20 +1,29 @@
 package br.com.italo.estuda_ai.service;
 
+
 import br.com.italo.estuda_ai.DTOs.requests.RequestCourse;
+import br.com.italo.estuda_ai.DTOs.responses.ResponseModule;
+import br.com.italo.estuda_ai.DTOs.responses.relations.ResponseModulesOfCourse;
 import br.com.italo.estuda_ai.model.CourseModel;
+import br.com.italo.estuda_ai.model.ModuleModel;
 import br.com.italo.estuda_ai.repository.CourseRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.ObjectMapper;
 
 import java.time.Duration;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class CourseService {
-
     @Autowired
     private CourseRepository courseRepository;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public List<CourseModel> getAllCourses(){
         return this.courseRepository.findAll();
@@ -52,6 +61,12 @@ public class CourseService {
 
 
         return this.courseRepository.save(course);
+    }
+
+
+    public Set<ModuleModel> getModulesOfCourse(String courseId){
+        Set<ModuleModel> modules = this.courseRepository.findById(UUID.fromString(courseId)).get().getModules();
+        return modules;
     }
 
 }

@@ -1,13 +1,17 @@
 package br.com.italo.estuda_ai.controller;
 
 import br.com.italo.estuda_ai.DTOs.requests.RequestCourse;
+import br.com.italo.estuda_ai.DTOs.responses.ResponseModuleSimplified;
+import br.com.italo.estuda_ai.DTOs.responses.relations.ResponseModulesOfCourse;
 import br.com.italo.estuda_ai.model.CourseModel;
+import br.com.italo.estuda_ai.model.ModuleModel;
 import br.com.italo.estuda_ai.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -45,6 +49,25 @@ public class CourseController {
     ){
         return ResponseEntity.status(HttpStatus.OK).body(this.courseService.updateCourse(id, requestUpdateCourse));
     }
+
+    //Rotas de relações
+    @GetMapping("/{id}/modules")
+    public ResponseEntity<ResponseModulesOfCourse> getModulesOfCourse(@PathVariable String id){
+
+        ArrayList<ModuleModel> modules = new ArrayList<>(this.courseService.getModulesOfCourse(id));
+
+        String courseName = modules.getFirst().getName();
+
+        List<ResponseModuleSimplified> moduleWithOutCourseNames = modules.stream().map
+                (module-> new ResponseModuleSimplified(module.getId(), module.getName(), module.getAverageDuration()))
+                .toList();
+
+        ResponseModulesOfCourse response = new ResponseModulesOfCourse(courseName, moduleWithOutCourseNames);
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+
 
 
 

@@ -3,13 +3,17 @@ package br.com.italo.estuda_ai.controller;
 
 import br.com.italo.estuda_ai.DTOs.requests.RequestModule;
 import br.com.italo.estuda_ai.DTOs.responses.ResponseModule;
+import br.com.italo.estuda_ai.DTOs.responses.ResponseSubmodulesSimplified;
+import br.com.italo.estuda_ai.DTOs.responses.relations.ResponseSubmodulesOfModule;
 import br.com.italo.estuda_ai.model.ModuleModel;
+import br.com.italo.estuda_ai.model.SubmoduleModel;
 import br.com.italo.estuda_ai.service.ModuleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -59,6 +63,21 @@ public class ModuleController {
         ResponseModule response = new ResponseModule(
                 module.getId(), module.getName(), module.getAverageDuration(), module.getCourse().getName()
         );
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+
+    }
+
+    @GetMapping("/{id}/submodules")
+    public ResponseEntity<ResponseSubmodulesOfModule> getSubmodulesOfModule(@PathVariable String id){
+        List<SubmoduleModel> submodules = new ArrayList<>(this.moduleService.getSubmodulesOfModule(id));
+
+        String courseName = submodules.getFirst().getModule().getCourse().getName();
+        String moduleName = submodules.getFirst().getModule().getName();
+
+        List<ResponseSubmodulesSimplified> submodulesWithOutModules = submodules.stream().map((submodule)->new ResponseSubmodulesSimplified(submodule.getId(), submodule.getName(), submodule.getAverageDuration())).toList();
+
+        ResponseSubmodulesOfModule response = new ResponseSubmodulesOfModule(courseName, moduleName, submodulesWithOutModules);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
 

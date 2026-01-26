@@ -35,6 +35,7 @@ public class QuestionService {
 
         newQuestion.setTitle(request.title());
         newQuestion.setLink(request.link());
+        newQuestion.setType(request.type());
 
         SubmoduleModel submoduleRed = entityManager.getReference(SubmoduleModel.class, UUID.fromString(request.submodule_id()));
 
@@ -52,6 +53,7 @@ public class QuestionService {
 
         question.setTitle(request.title());
         question.setLink(request.link());
+        question.setType(request.type());
 
         SubmoduleModel submoduleRef = entityManager.getReference(SubmoduleModel.class, UUID.fromString(request.submodule_id()));
         question.setSubmodule(submoduleRef);
