@@ -3,7 +3,7 @@ package br.com.italo.estuda_ai.controller;
 
 import br.com.italo.estuda_ai.DTOs.requests.RequestModule;
 import br.com.italo.estuda_ai.DTOs.responses.ResponseModule;
-import br.com.italo.estuda_ai.DTOs.responses.ResponseSubmodulesSimplified;
+import br.com.italo.estuda_ai.DTOs.responses.ResponseSubmoduleSimplified;
 import br.com.italo.estuda_ai.DTOs.responses.relations.ResponseSubmodulesOfModule;
 import br.com.italo.estuda_ai.model.ModuleModel;
 import br.com.italo.estuda_ai.model.SubmoduleModel;
@@ -23,8 +23,12 @@ public class ModuleController {
     private ModuleService moduleService;
 
     @GetMapping
-    public List<ModuleModel> getAllModules(){
-        return this.moduleService.getAllModules();
+    public ResponseEntity<List<ResponseModule>> getAllModules(){
+        List<ModuleModel> modules = this.moduleService.getAllModules();
+
+        List<ResponseModule> response = modules.stream().map((module)->new ResponseModule(module.getId(), module.getName(), module.getAverageDuration(), module.getCourse().getName())).toList();
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @GetMapping("/{id}")
@@ -75,7 +79,7 @@ public class ModuleController {
         String courseName = submodules.getFirst().getModule().getCourse().getName();
         String moduleName = submodules.getFirst().getModule().getName();
 
-        List<ResponseSubmodulesSimplified> submodulesWithOutModules = submodules.stream().map((submodule)->new ResponseSubmodulesSimplified(submodule.getId(), submodule.getName(), submodule.getAverageDuration())).toList();
+        List<ResponseSubmoduleSimplified> submodulesWithOutModules = submodules.stream().map((submodule)->new ResponseSubmoduleSimplified(submodule.getId(), submodule.getName(), submodule.getAverageDuration())).toList();
 
         ResponseSubmodulesOfModule response = new ResponseSubmodulesOfModule(courseName, moduleName, submodulesWithOutModules);
 

@@ -34,15 +34,14 @@ public class QuestionController {
     }
 
     @PostMapping
-    public Object createQuestion(@RequestBody RequestQuestion requestQuestion){
+    public ResponseEntity<ResponseQuestion> createQuestion(@RequestBody RequestQuestion requestQuestion){
         QuestionModel question = this.questionService.createQuestion(requestQuestion);
 
-        return question;
-//        ResponseQuestion response = new ResponseQuestion(
-//                question.getId(), question.getTitle(), question.getLink(), question.getSubmodule().getName(), question.getSubmodule().getModule().getName(), question.getSubmodule().getModule().getCourse().getName()
-//        );
-//
-//        return ResponseEntity.status(HttpStatus.OK).body(response);
+        ResponseQuestion response = new ResponseQuestion(
+                question.getId(), question.getTitle(), question.getLink(), question.getSubmodule().getName(), question.getSubmodule().getModule().getName(), question.getSubmodule().getModule().getCourse().getName()
+        );
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @DeleteMapping("/{id}")

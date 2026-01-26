@@ -27,7 +27,7 @@ public class SubmoduleService {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public List<SubmoduleModel> getAll(){
+    public List<SubmoduleModel> getAllSubmodules(){
         return  this.submoduleRepository.findAll();
     }
 

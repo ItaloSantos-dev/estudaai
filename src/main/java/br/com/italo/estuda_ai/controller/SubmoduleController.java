@@ -25,8 +25,12 @@ public class SubmoduleController {
     private SubmoduleService subModuleService;
 
     @GetMapping
-    public List<SubmoduleModel> getAllSubmodules(){
-        return this.subModuleService.getAll();
+    public ResponseEntity<List<ResponseSubmodule>> getAllSubmodules(){
+        List<SubmoduleModel> submodules = this.subModuleService.getAllSubmodules();
+
+        List<ResponseSubmodule> response = submodules.stream().map((submodule)->new ResponseSubmodule(submodule.getId(), submodule.getName(), submodule.getAverageDuration(), submodule.getModule().getName(), submodule.getModule().getCourse().getName())).toList();
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @GetMapping("/{id}")
