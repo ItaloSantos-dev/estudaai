@@ -1,2 +1,2 @@
-insert into courses (id, name, description, average_duration) VALUES
-    (gen_random_uuid(), 'ENEM', 'programa de preparação focado nos conteúdos e no formato da prova, trabalhando as quatro áreas do conhecimento (Linguagens, Matemática, Ciências da Natureza e Ciências Humanas) e Redação.', 5000);
+insert into users (id, name, email, password, role, nasciment) values
+( gen_random_uuid(),'admin', 'admin@.com', '$2a$10$2Thw80GFKwkJrMQTjqTXF.dhDYDhUTGeEB1iMi5EOhZkJz3fI/43m', '0', '2005-08-02');

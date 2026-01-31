@@ -25,6 +25,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody RequestLogin requestLogin){
         Authentication auth = this.authService.login(requestLogin);
+
         if(auth.isAuthenticated()) {
             String token = tokenService.generateToken((UserModel) auth.getPrincipal());
             return ResponseEntity.ok(token);
