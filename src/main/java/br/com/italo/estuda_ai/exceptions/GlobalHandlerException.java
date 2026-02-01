@@ -12,4 +12,8 @@ public class GlobalHandlerException  {
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseException(HttpStatus.NOT_FOUND, exception.getMessage()));
     }
+    @ExceptionHandler(ItemAlreadyExistsException.class)
+    private ResponseEntity<ResponseException> handleItemAlreaddyExists(ItemAlreadyExistsException exception){
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ResponseException(HttpStatus.CONFLICT, exception.getMessage()));
+    }
 }

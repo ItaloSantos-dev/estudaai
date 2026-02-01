@@ -1,11 +1,12 @@
 package br.com.italo.estuda_ai.exceptions;
 
-public class UserAlreadyExistsException extends RuntimeException {
-    public UserAlreadyExistsException(String message) {
-        super(message);
+public class ItemAlreadyExistsException extends RuntimeException {
+
+    public ItemAlreadyExistsException(String menssage) {
+        super(menssage);
     }
 
-    public UserAlreadyExistsException() {
-        super("Esse usuário ja existe");
+    public ItemAlreadyExistsException(String item, String violation) {
+        super("Esse " + item +" com "+ violation+ " já existe");
     }
 }

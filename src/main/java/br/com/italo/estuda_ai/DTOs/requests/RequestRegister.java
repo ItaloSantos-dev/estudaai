@@ -8,7 +8,6 @@ public record RequestRegister(
         String name,
         String email,
         String password,
-        LocalDate nasciment,
-        UserRole role
+        LocalDate nasciment
 ) {
 }
