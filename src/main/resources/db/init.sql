@@ -1,1 +1,1 @@
-create database estudaai;
+create database IF NOT EXISTS estudaai;
